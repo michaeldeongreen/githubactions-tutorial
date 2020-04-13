@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-    - 'deployment/signalr-matrix-keyvault-tutorial.sh'
+    - 'deployment/arm/signalr-matrix-keyvault-tutorial.sh'
     - '.github/workflows/signalr-matrix-keyvault-tutorial.yml'
   
 name: 'Test signalR Matrix & Keyvault'
