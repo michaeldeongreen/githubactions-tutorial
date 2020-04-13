@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        client: [roah, toki, jagi, ken]
+        customer: ${{ secrets.ORG_CUSTOMERS }}
 
     steps:
     - name: 'Checkout Repository'
@@ -35,7 +35,7 @@ jobs:
     - name: 'Create Resource Group'
       run: |
         chmod +x ./deployment/arm/signalr-matrix-tutorial.sh
-        bash ./deployment/arm/signalr-matrix-tutorial.sh -o ${{ matrix.client }}
+        bash ./deployment/arm/signalr-matrix-tutorial.sh -o ${{ matrix.customer }}
 
     - name: 'Logout via Azure CLI'
       run: |
