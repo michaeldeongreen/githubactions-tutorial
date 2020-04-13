@@ -17,9 +17,10 @@ jobs:
     name: 'Execute bash file'
     runs-on: ubuntu-latest
 
+    # https://github.community/t5/GitHub-Actions/Secrets-in-matrix/td-p/42613
     strategy:
       matrix:
-        customer: ${{ secrets.ORG_CUSTOMERS }}
+        customer: [roah, toki, jagi, ken]
 
     steps:
     - name: 'Checkout Repository'
