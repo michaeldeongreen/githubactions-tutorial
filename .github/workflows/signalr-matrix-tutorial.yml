@@ -1,21 +1,25 @@
 ##################################################################################################
-# Name: Test bash files
-# Descripton: GitHub Action Workflow used to test how to execute bash files.
+# Name: Test signalR Matrix
+# Descripton: GitHub Action Workflow used to test how to deploy signalR using a matrix.
 ##################################################################################################
 on:
   push:
     branches:
       - master
     paths:
-    - 'deployment/execute-script-tutorial.sh'
-    - '.github/workflows/execute-script-tutorial.yml'
+    - 'deployment/signalr-matrix-tutorial.sh'
+    - '.github/workflows/signalr-matrix-tutorial.yml'
   
-name: 'Test bash files'
+name: 'Test signalR Matrix'
 
 jobs:
   execute-bash-file:
     name: 'Execute bash file'
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        client: [roah, toki, jagi, ken]
 
     steps:
     - name: 'Checkout Repository'
@@ -30,8 +34,8 @@ jobs:
 
     - name: 'Create Resource Group'
       run: |
-        chmod +x ./deployment/arm/execute-script-tutorial.sh
-        bash ./deployment/arm/execute-script-tutorial.sh
+        chmod +x ./deployment/arm/signalr-matrix-tutorial.sh
+        bash ./deployment/arm/signalr-matrix-tutorial.sh -o ${{ matrix.client }}
 
     - name: 'Logout via Azure CLI'
       run: |
