@@ -21,7 +21,7 @@ done
 
 # ensure parameters were provided
 if [[ $# -eq 0 || -z $orgName ]]; then
-    echo "Parameters missing! Required parameters are:  [-o] orgName"
+    echo "Parameters missing! Required parameters are:  [-n] orgName"
     exit 1; 
 fi
 
