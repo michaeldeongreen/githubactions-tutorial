@@ -36,7 +36,7 @@ jobs:
     - name: 'Create Resource Group'
       run: |
         chmod +x ./deployment/arm/signalr-matrix-keyvault-tutorial.sh
-        bash ./deployment/arm/signalr-matrix-keyvault-tutorial -o ${{ matrix.customer }}
+        bash ./deployment/arm/signalr-matrix-keyvault-tutorial.sh -o ${{ matrix.customer }}
 
     - name: 'Logout via Azure CLI'
       run: |
