@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        client: [roah, toki, jagi, ken]
+        client: [roah]
 
     steps:
     - name: 'Checkout Repository'
