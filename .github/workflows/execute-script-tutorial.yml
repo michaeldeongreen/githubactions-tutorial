@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-    - 'deployment/execute-script-tutorial.sh'
+    - 'deployment/arm/execute-script-tutorial.sh'
     - '.github/workflows/execute-script-tutorial.yml'
   
 name: 'Test bash files'

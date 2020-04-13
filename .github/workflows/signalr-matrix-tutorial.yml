@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-    - 'deployment/signalr-matrix-tutorial.sh'
+    - 'deployment/arm/signalr-matrix-tutorial.sh'
     - '.github/workflows/signalr-matrix-tutorial.yml'
   
 name: 'Test signalR Matrix'
