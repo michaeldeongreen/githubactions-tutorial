@@ -1,0 +1,35 @@
+##################################################################################################
+# Name: Test bash files
+# Descripton: GitHub Action Workflow used to test how to execute bash files.
+##################################################################################################
+on:
+  push:
+    branches:
+      - master
+  
+name: 'Test bash files'
+
+jobs:
+  execute-bash-file:
+    name: 'Execute bash file'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Checkout Repository'
+      uses: actions/checkout@master
+      with:
+        ref: refs/heads/master
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}          
+
+    - name: 'Create Resource Group'
+      run: |
+        chmod +x ./deployment/arm/execute-script-tutorial.sh
+        bash ././deployment/arm/execute-script-tutorial.sh
+
+    - name: 'Logout via Azure CLI'
+      run: |
+        az logout
