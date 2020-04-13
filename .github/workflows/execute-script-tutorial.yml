@@ -8,7 +8,7 @@ on:
       - master
     paths:
     - 'deployment/execute-script-tutorial.sh'
-    - 'deployment/execute-script-tutorial.yml'
+    - '.github/workflows/execute-script-tutorial.yml'
   
 name: 'Test bash files'
 
