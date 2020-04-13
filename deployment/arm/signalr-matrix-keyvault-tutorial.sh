@@ -37,7 +37,8 @@ az group create --l southcentralus \
 az group deployment create -g $rgName \
     -n "$orgName-deployment" \
     -p name=$signalrName \
-    -f signalr.json
+    -f signalr.json \
+    --output none
 
 # get primary connection string
 declare signalrPrimaryConnectionString=$(az signalr key list -n $signalrName -g $rgName --query primaryConnectionString -o tsv)
@@ -46,4 +47,5 @@ declare signalrPrimaryConnectionString=$(az signalr key list -n $signalrName -g 
 #       put keyvault name in secrets and pass as parameter
 az keyvault secret set -n "kv-secret-$signalrName-primary-connection-string" \
     --vault-name kv-gha-scus-dev \
-    --value $signalrPrimaryConnectionString
+    --value $signalrPrimaryConnectionString \
+    --output none
