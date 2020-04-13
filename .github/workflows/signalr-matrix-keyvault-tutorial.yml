@@ -1,7 +1,7 @@
-##################################################################################################
-# Name: Test signalR Matrix
-# Descripton: GitHub Action Workflow used to test how to deploy signalR using a matrix.
-##################################################################################################
+###########################################################################################################################################
+# Name: Test signalR Matrix & Keyvault
+# Descripton: GitHub Action Workflow used to test how to deploy signalR using a matrix & store primary connection string in Azure Keyvault.
+###########################################################################################################################################
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ on:
     - 'deployment/signalr-matrix-keyvault-tutorial.sh'
     - '.github/workflows/signalr-matrix-keyvault-tutorial.yml'
   
-name: 'Test signalR Matrix'
+name: 'Test signalR Matrix & Keyvault'
 
 jobs:
   execute-bash-file:
