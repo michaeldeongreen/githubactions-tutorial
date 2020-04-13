@@ -1,0 +1,43 @@
+##################################################################################################
+# Name: Test signalR Matrix
+# Descripton: GitHub Action Workflow used to test how to deploy signalR using a matrix.
+##################################################################################################
+on:
+  push:
+    branches:
+      - master
+    paths:
+    - 'deployment/signalr-matrix-keyvault-tutorial.sh'
+    - '.github/workflows/signalr-matrix-keyvault-tutorial.yml'
+  
+name: 'Test signalR Matrix'
+
+jobs:
+  execute-bash-file:
+    name: 'Execute bash file'
+    runs-on: ubuntu-latest
+
+    # https://github.community/t5/GitHub-Actions/Secrets-in-matrix/td-p/42613
+    strategy:
+      matrix:
+        customer: [roah, toki, jagi, ken]
+
+    steps:
+    - name: 'Checkout Repository'
+      uses: actions/checkout@master
+      with:
+        ref: refs/heads/master
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}          
+
+    - name: 'Create Resource Group'
+      run: |
+        chmod +x ./deployment/arm/signalr-matrix-keyvault-tutorial.sh
+        bash ./deployment/arm/signalr-matrix-keyvault-tutorial -o ${{ matrix.customer }}
+
+    - name: 'Logout via Azure CLI'
+      run: |
+        az logout
