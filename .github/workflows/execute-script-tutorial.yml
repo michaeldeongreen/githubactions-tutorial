@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - master
+    paths:
+    - 'deployment/execute-script-tutorial.sh'
+    - 'deployment/execute-script-tutorial.yml'
   
 name: 'Test bash files'
 
