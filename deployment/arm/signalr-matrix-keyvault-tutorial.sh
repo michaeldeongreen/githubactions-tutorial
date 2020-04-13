@@ -44,6 +44,6 @@ declare signalrPrimaryConnectionString=$(az signalr key list -n $signalrName -g 
 
 # TODO: check for null/empty
 #       put keyvault name in secrets and pass as parameter
-az keyvault secret set --n "kv-secret-$signalrName-primary-connection-string" \
+az keyvault secret set -n "kv-secret-$signalrName-primary-connection-string" \
     --vault-name kv-gha-scus-dev \
     --value $signalrPrimaryConnectionString
