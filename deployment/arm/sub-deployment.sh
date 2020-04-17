@@ -1,0 +1,1 @@
+az deployment sub create -n "test" -l eastus -f sub-deployment.json

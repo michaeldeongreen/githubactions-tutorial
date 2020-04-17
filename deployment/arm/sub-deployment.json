@@ -1,0 +1,74 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "orgPrefix": {
+            "type": "string",
+            "defaultValue": "lct"
+        },
+        "appName": {
+            "type": "string",
+            "defaultValue": "c19dc"
+        },
+        "customers": {
+            "type": "string",
+            "defaultValue": "cust01,cust02,cust03"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "eastus"
+        }        
+    },
+    "variables": {
+        "delimiters": [","],
+        "customerArray": "[split(parameters('customers'),',')]"
+    },
+    "resources": [
+
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "eastus",
+            "name": "[concat('rg-', parameters('orgPrefix'), '-', parameters('appName'), '-', variables('customerArray')[copyIndex()])]",
+            "copy":{
+                "name": "rgcopy",
+                "count": "[length(variables('customerArray'))]"
+            },            
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "storageDeployment",
+            "resourceGroup": "[concat('rg-', parameters('orgPrefix'), '-', parameters('appName'), '-', variables('customerArray')[copyIndex()])]",
+            "dependsOn": ["rgcopy"],
+            "copy":{
+                "name": "sacopy",
+                "count": "[length(variables('customerArray'))]"
+            },             
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVersion": "2017-10-01",
+                            "name": "[concat('sa', parameters('orgPrefix'), parameters('appName'), variables('customerArray')[copyIndex()])]",
+                            "location": "[parameters('location')]",
+                            "kind": "StorageV2",
+                            "sku": {
+                                "name": "Standard_LRS"
+                            }
+                        }
+                    ],
+                    "outputs": {}
+                }
+            }
+        }        
+    ],
+    "outputs": {}
+}
