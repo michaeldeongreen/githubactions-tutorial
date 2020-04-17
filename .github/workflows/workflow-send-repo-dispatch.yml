@@ -1,0 +1,26 @@
+##################################################################################################
+# Name: Test send repo dispatch
+# Descripton: GitHub Action Workflow used to test how to send a repo dispatch.
+##################################################################################################
+on:
+  push:
+    branches:
+      - master
+    paths:
+    - '.github/workflows/workflow-send-repo-dispatch.yml'
+  
+name: 'Test send repo dispatch'
+
+jobs:
+  send-repo-dispatch:
+    name: 'Send repo event'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Repository Dispatch'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: michaeldeongreen/githubactions-tutorial
+        event-type: workflow-send-repo-dispatch
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
