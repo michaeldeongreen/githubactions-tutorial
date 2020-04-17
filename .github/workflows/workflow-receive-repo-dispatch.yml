@@ -1,0 +1,23 @@
+##################################################################################################
+# Name: Test receive repo dispatch
+# Descripton: GitHub Action Workflow used to test how to receive a repo dispatch.
+##################################################################################################
+on:
+  push:
+    branches:
+      - master
+    paths:
+    - '.github/workflows/workflow-receive-repo-dispatch.yml'
+  repository_dispatch:
+    types: [workflow-send-repo-dispatch]
+  
+name: 'Test receive repo dispatch'
+
+jobs:
+  myEvent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.event.client_payload.sha }}
