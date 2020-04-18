@@ -31,7 +31,7 @@ jobs:
     - name: 'Create Azure Resources'
       run: |
         chmod +x ./deployment/arm/signalr-loop-tutorial.sh
-        bash ./deployment/arm/signalr-loop-tutorial.sh -o oncepiece
+        bash ./deployment/arm/signalr-loop-tutorial.sh -o onepiece
 
     - name: 'Logout via Azure CLI'
       run: |
