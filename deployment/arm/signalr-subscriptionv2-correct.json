@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Provide a location for the SignalR Service that supports Event Grid."
+            }
+        }
+    },
+
+    "resources": [
+        {
+            "name": "[concat('sr-hao-michael-dev', '/Microsoft.EventGrid/', 'disconnectedBroadcast')]",
+            "type": "Microsoft.SignalRService/SignalR/providers/eventSubscriptions",
+            "apiVersion": "2020-01-01-preview",
+            "location": "[parameters('location')]",
+            "properties": {
+            "topic": "/subscriptions/'subid'/resourceGroups/rg-lct-c19dc-11120-dev/providers/Microsoft.SignalRService/SignalR/sr-hao-michael-dev",              
+              "destination": {
+                "endpointType": "AzureFunction",
+                "properties": {
+                  "resourceId": "[concat('/subscriptions/', 'subid' ,'/resourcegroups/', 'signalr-investigate', '/providers/Microsoft.Web/sites/', 'by-covid-sr-middleman', '/functions/' , 'clientDisconnected')]",
+                  "maxEventsPerBatch": 1,
+                  "preferredBatchSizeInKilobytes": 64
+                }
+              },
+              "filter": {
+                "includedEventTypes": [
+                    "Microsoft.SignalRService.ClientConnectionDisconnected"
+                ],
+                "advancedFilters": []
+            },
+              "labels": [],
+              "eventDeliverySchema": "EventGridSchema"
+            }
+        }
+    ]
+}
