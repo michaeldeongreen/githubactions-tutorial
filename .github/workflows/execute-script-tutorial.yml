@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - master
+      - develop
     paths:
     - 'deployment/arm/execute-script-tutorial.sh'
     - '.github/workflows/execute-script-tutorial.yml'
@@ -20,8 +21,6 @@ jobs:
     steps:
     - name: 'Checkout Repository'
       uses: actions/checkout@master
-      with:
-        ref: refs/heads/master
 
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
